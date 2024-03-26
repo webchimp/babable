@@ -15,6 +15,9 @@ const config = {
 	scale: {
 		zoom: 2,
 	},
+	input: {
+		gamepad: true,
+	},
 	physics: {
 		default: 'arcade',
 		arcade: {
@@ -25,7 +28,7 @@ const config = {
 	roundPixels: true,
 	scene: [
 		Preloader,
-		Sandbox
+		Sandbox,
 	],
 };
 

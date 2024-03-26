@@ -36,12 +36,9 @@ export default class Level extends Scene {
 		// if there is a baba is you statement, set the baba to you
 		const isYou = this.statements.filter(statement => statement.includes('is you'));
 
-		console.log('isYou', isYou);
-
 		if(isYou.length) {
 			characters.forEach(character => {
 				if(isYou.some(statement => statement.includes(character.name))) {
-					console.log('character', character.name, character.unique);
 					character.setYou(true);
 				}
 			});

@@ -30,6 +30,7 @@ export default class Entity extends Phaser.Physics.Arcade.Sprite {
 		});
 
 		this.cursors = this.scene.input.keyboard.createCursorKeys();
+		this.gamepad = this.scene.input.gamepad.getPad(0);
 
 		const controlConfig = {
 			camera: this.scene.cameras.main,
@@ -62,18 +63,22 @@ export default class Entity extends Phaser.Physics.Arcade.Sprite {
 
 	move(axis, direction) {
 
+		console.log('move', axis, direction);
+
 		const tileToBe = { ...this.tile };
 		tileToBe[axis] += direction;
 
+		console.log('tileToBe', tileToBe);
+
 		// do not move if the entity is against the world bounds
-		if(tileToBe.x <= -1 && this.cursors.left.isDown) return false;
-		if(tileToBe.y <= -1 && this.cursors.up.isDown) return false;
+		if(tileToBe.x <= -1) return false;
+		if(tileToBe.y <= -1) return false;
 
 		// get the scene size
 		const { width, height } = this.scene.sys.game.canvas;
 
-		if(tileToBe.x >= (width / TILE_SIZE) && this.cursors.right.isDown) return false;
-		if(tileToBe.y >= (height / TILE_SIZE) && this.cursors.down.isDown) return false;
+		if(tileToBe.x >= (width / TILE_SIZE)) return false;
+		if(tileToBe.y >= (height / TILE_SIZE)) return false;
 
 		let hitWall = false;
 
@@ -168,23 +173,29 @@ export default class Entity extends Phaser.Physics.Arcade.Sprite {
 
 	update(...args) {
 
+		if(!this.gamepad) this.gamepad = this.scene.input.gamepad.getPad(0);
 		if(!this.you) return false;
 		if(this.animating) return false;
 
+		if(this.gamepad) {
+			if(this.gamepad.left) {
+				this.move('x', -1);
+			} else if(this.gamepad.right) {
+				this.move('x', 1);
+			} else if(this.gamepad.up) {
+				this.move('y', -1);
+			} else if(this.gamepad.down) {
+				this.move('y', 1);
+			}
+		}
+
 		if(this.cursors.left.isDown) {
-
 			this.move('x', -1);
-
 		} else if(this.cursors.right.isDown) {
-
 			this.move('x', 1);
-
 		} else if(this.cursors.up.isDown) {
-
 			this.move('y', -1);
-
 		} else if(this.cursors.down.isDown) {
-
 			this.move('y', 1);
 		}
 	}

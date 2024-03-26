@@ -27,6 +27,10 @@ export class Preloader extends Scene {
 	}
 
 	create() {
+		this.input.gamepad.once('connected', function (pad) {
+			console.log('Gamepad connected', pad);
+		});
+
 		this.scene.start('Sandbox');
 	}
 }
