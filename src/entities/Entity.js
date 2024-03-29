@@ -90,7 +90,7 @@ export default class Entity extends Phaser.Physics.Arcade.Sprite {
 		//sound.play();
 
 		this.animating = true;
-		this.scene.registerMovement(this, direction);
+		this.registerMovement(direction);
 
 		return true;
 	}
@@ -144,6 +144,15 @@ export default class Entity extends Phaser.Physics.Arcade.Sprite {
 		}
 
 		return entitiesInTile;
+	}
+
+	registerMovement(direction) {
+
+		// check if the entity is already in the movements array by uid
+		const alreadyMoving = this.scene.movements.find(m => m.entity.uid === this.uid);
+		if(alreadyMoving) return;
+
+		this.scene.movements.push({ entity: this, direction });
 	}
 
 	update(...args) {

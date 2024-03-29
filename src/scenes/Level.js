@@ -14,15 +14,6 @@ export default class Level extends Scene {
 		this.moving = false;
 	}
 
-	registerMovement(entity, direction) {
-
-		// check if the entity is already in the movements array by uid
-		const alreadyMoving = this.movements.find(m => m.entity.uid === entity.uid);
-		if(alreadyMoving) return;
-
-		this.movements.push({ entity, direction });
-	}
-
 	resolveMovements() {
 
 		console.log('resolveMovements', this.movements);
