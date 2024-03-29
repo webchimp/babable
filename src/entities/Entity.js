@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { v4 as uuidv4 } from 'uuid';
 const TILE_SIZE = 24;
 
 export default class Entity extends Phaser.Physics.Arcade.Sprite {
@@ -7,6 +8,7 @@ export default class Entity extends Phaser.Physics.Arcade.Sprite {
 
 		super(scene, x * TILE_SIZE, y * TILE_SIZE, name);
 
+		this.uid = uuidv4();
 		this.tile = { x, y };
 
 		// set the origin to the top left corner
@@ -63,19 +65,20 @@ export default class Entity extends Phaser.Physics.Arcade.Sprite {
 
 	move(axis, direction) {
 
+		if(this.animating) return false;
+
 		console.log('move', axis, direction);
+
+		const { width, height } = this.scene.sys.game.canvas;
 
 		const tileToBe = { ...this.tile };
 		tileToBe[axis] += direction;
-
-		console.log('tileToBe', tileToBe);
 
 		// do not move if the entity is against the world bounds
 		if(tileToBe.x <= -1) return false;
 		if(tileToBe.y <= -1) return false;
 
 		// get the scene size
-		const { width, height } = this.scene.sys.game.canvas;
 
 		if(tileToBe.x >= (width / TILE_SIZE)) return false;
 		if(tileToBe.y >= (height / TILE_SIZE)) return false;
@@ -96,26 +99,12 @@ export default class Entity extends Phaser.Physics.Arcade.Sprite {
 		this.createDust(axis, direction);
 
 		this.tile[axis] += direction;
-		this.animating = true;
 
 		//const sound = this.scene.sound.add('walking-sound');
 		//sound.play();
 
-		this.scene.tweens.add({
-			targets: this,
-			x: this.tile.x * TILE_SIZE,
-			y: this.tile.y * TILE_SIZE,
-			duration: 150,
-			ease: 'Power1',
-			onComplete: () => {
-				this.animating = false;
-				if(typeof this.afterMove === 'function') this.afterMove(axis, direction);
-
-				this.scene.statements = [];
-				this.scene.solveWordChains();
-				this.scene.solveStatements();
-			},
-		});
+		this.animating = true;
+		this.scene.registerMovement(this, direction);
 
 		return true;
 	}
@@ -172,31 +161,5 @@ export default class Entity extends Phaser.Physics.Arcade.Sprite {
 	}
 
 	update(...args) {
-
-		if(!this.gamepad) this.gamepad = this.scene.input.gamepad.getPad(0);
-		if(!this.you) return false;
-		if(this.animating) return false;
-
-		if(this.gamepad) {
-			if(this.gamepad.left) {
-				this.move('x', -1);
-			} else if(this.gamepad.right) {
-				this.move('x', 1);
-			} else if(this.gamepad.up) {
-				this.move('y', -1);
-			} else if(this.gamepad.down) {
-				this.move('y', 1);
-			}
-		}
-
-		if(this.cursors.left.isDown) {
-			this.move('x', -1);
-		} else if(this.cursors.right.isDown) {
-			this.move('x', 1);
-		} else if(this.cursors.up.isDown) {
-			this.move('y', -1);
-		} else if(this.cursors.down.isDown) {
-			this.move('y', 1);
-		}
 	}
 }
