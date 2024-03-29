@@ -30,20 +30,6 @@ export default class Entity extends Phaser.Physics.Arcade.Sprite {
 			frameRate: 20,
 			repeat: 0,
 		});
-
-		this.cursors = this.scene.input.keyboard.createCursorKeys();
-		this.gamepad = this.scene.input.gamepad.getPad(0);
-
-		const controlConfig = {
-			camera: this.scene.cameras.main,
-			left: this.cursors.left,
-			right: this.cursors.right,
-			up: this.cursors.up,
-			down: this.cursors.down,
-			speed: 0.5,
-		};
-
-		this.controls = new Phaser.Cameras.Controls.FixedKeyControl(controlConfig);
 	}
 
 	createAnim(animKey, key, frames) {
