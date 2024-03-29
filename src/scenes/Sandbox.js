@@ -19,6 +19,8 @@ export class Sandbox extends Level {
 	}
 
 	create() {
+		super.create();
+
 		this.baba = new Baba(this, 2, 2);
 		this.keke = new Keke(this, 5, 5);
 		this.keke2 = new Keke(this, 8, 8);
@@ -42,12 +44,6 @@ export class Sandbox extends Level {
 	}
 
 	update(time, delta) {
-
-		// update all the entities
-		this.children.list.forEach(child => {
-			if(child.update) {
-				child.update(time, delta);
-			}
-		});
+		super.update(time, delta);
 	}
 }
