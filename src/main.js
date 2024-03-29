@@ -1,6 +1,5 @@
-//import { Boot } from './scenes/Boot';
 import { Preloader } from './scenes/Preloader';
-import { Sandbox } from './scenes/Sandbox';
+import { Sandbox } from './scenes/SandboxPlatform';
 
 const TILE_SIZE = 24;
 
@@ -21,7 +20,8 @@ const config = {
 	physics: {
 		default: 'arcade',
 		arcade: {
-			debug: false,
+			debug: true,
+			gravity: { y: 300 },
 		},
 	},
 	pixelArt: true,

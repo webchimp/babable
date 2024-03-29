@@ -14,6 +14,15 @@ export default class Entity extends Phaser.Physics.Arcade.Sprite {
 		// set the origin to the top left corner
 		this.setOrigin(0, 0);
 
+		// add collision
+		this.scene.physics.world.enable(this);
+
+		// remove gravity
+		this.body.setAllowGravity(false);
+
+		// make immovable
+		this.body.immovable = true;
+
 		// Add the entity to the scene
 		this.scene.add.existing(this);
 
@@ -41,13 +50,11 @@ export default class Entity extends Phaser.Physics.Arcade.Sprite {
 		});
 	}
 
-	setYou(flag) {
-		this.you = flag;
-	}
+	setProp(prop, flag = true) { this[prop] = flag; }
 
-	setPush(flag) {
-		this.push = flag;
-	}
+	setYou(flag = true) { this.setProp('you', flag); }
+
+	setPush(flag = true) { this.setProp('push', flag); }
 
 	move(axis, direction) {
 

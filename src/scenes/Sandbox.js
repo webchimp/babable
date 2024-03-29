@@ -3,12 +3,12 @@ import Level from './Level';
 import Baba from '../entities/Baba';
 import Keke from '../entities/Keke';
 
-import Word from '../entities/Word';
+import Flag from '../entities/Flag';
+
 import BabaWord from '../entities/BabaWord';
 import KekeWord from '../entities/KekeWord';
 import IsWord from '../entities/IsWord';
 import YouWord from '../entities/YouWord';
-import Flag from '../entities/Flag';
 
 export class Sandbox extends Level {
 	constructor() {
@@ -27,14 +27,13 @@ export class Sandbox extends Level {
 
 		this.kekeWord = new KekeWord(this, 10, 10);
 		this.babaWord = new BabaWord(this, 2, 10);
+		this.flag = new Flag(this, 5, 10);
+
 		this.is = new IsWord(this, 3, 10);
 		this.you = new YouWord(this, 4, 10);
 		this.you2 = new YouWord(this, 4, 12);
 
-		this.flag = new Flag(this, 5, 10);
 		this.flag.setPush(true);
-
-		this.flag.setYou(true);
 		this.keke.setPush(true);
 		this.keke2.setPush(true);
 		this.baba.setPush(true);

@@ -14,6 +14,10 @@ export default class Word extends Entity {
 		this.push = true;
 		this.wordActive = true;
 
+		// set height and width to TILE_SIZE
+		this.body.setSize(24, 24);
+		this.setOrigin(0, 0);
+
 		this.checkState();
 	}
 
