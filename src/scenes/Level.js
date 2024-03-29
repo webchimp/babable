@@ -128,6 +128,8 @@ export default class Level extends Scene {
 	update(time, delta) {
 		super.update(time, delta);
 
+		if(!this.gamepad) this.gamepad = this.input.gamepad.getPad(0);
+
 		if(this.gamepad) {
 			if(this.gamepad.left) {
 				this.solveMovement('x', -1);
