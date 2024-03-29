@@ -13,6 +13,8 @@ export default class Word extends Entity {
 		this.color = color;
 		this.push = true;
 		this.wordActive = true;
+
+		this.checkState();
 	}
 
 	checkState() {
@@ -186,6 +188,6 @@ export default class Word extends Entity {
 	}
 
 	setupAnimations(name) {
-		this.createAnim(`${ name }-word`, `${ name }-word`, [ 1, 2, 3 ]);
+		this.createAnim(`${ name }-word`, `${ name }-word`, [ 0, 1, 2 ]);
 	}
 }

@@ -8,6 +8,7 @@ import BabaWord from '../entities/BabaWord';
 import KekeWord from '../entities/KekeWord';
 import IsWord from '../entities/IsWord';
 import YouWord from '../entities/YouWord';
+import Flag from '../entities/Flag';
 
 export class Sandbox extends Level {
 	constructor() {
@@ -19,20 +20,19 @@ export class Sandbox extends Level {
 
 	create() {
 		this.baba = new Baba(this, 2, 2);
-		this.baba.unique = 'BABA';
-
 		this.keke = new Keke(this, 5, 5);
-		this.keke.unique = 'KEKE1';
-
 		this.keke2 = new Keke(this, 8, 8);
-		this.keke2.unique = 'KEKE2';
 
 		this.kekeWord = new KekeWord(this, 10, 10);
 		this.babaWord = new BabaWord(this, 2, 10);
 		this.is = new IsWord(this, 3, 10);
 		this.you = new YouWord(this, 4, 10);
+		this.you2 = new YouWord(this, 4, 12);
 
-		this.baba.setYou(true);
+		this.flag = new Flag(this, 5, 10);
+		this.flag.setPush(true);
+
+		this.flag.setYou(true);
 		this.keke.setPush(true);
 		this.keke2.setPush(true);
 		this.baba.setPush(true);
@@ -42,8 +42,12 @@ export class Sandbox extends Level {
 	}
 
 	update(time, delta) {
-		this.baba.update();
-		this.keke.update();
-		this.keke2.update();
+
+		// update all the entities
+		this.children.list.forEach(child => {
+			if(child.update) {
+				child.update(time, delta);
+			}
+		});
 	}
 }

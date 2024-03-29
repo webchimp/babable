@@ -20,6 +20,11 @@ export class Preloader extends Scene {
 		this.load.spritesheet('baba', 'assets/sprites/characters/baba.png', { frameWidth: 24, frameHeight: 24 });
 		this.load.spritesheet('keke', 'assets/sprites/characters/keke.png', { frameWidth: 24, frameHeight: 24 });
 
+		this.load.spritesheet('flag', 'assets/sprites/objects/flag.png', { frameWidth: 24, frameHeight: 24 });
+		this.load.spritesheet('key', 'assets/sprites/objects/key.png', { frameWidth: 24, frameHeight: 24 });
+		this.load.spritesheet('pizza', 'assets/sprites/objects/pizza.png', { frameWidth: 24, frameHeight: 24 });
+		this.load.spritesheet('rock', 'assets/sprites/objects/rock.png', { frameWidth: 24, frameHeight: 24 });
+
 		this.load.spritesheet('is-word', 'assets/sprites/words/is.png', { frameWidth: 24, frameHeight: 24 });
 		this.load.spritesheet('you-word', 'assets/sprites/words/you.png', { frameWidth: 24, frameHeight: 24 });
 		this.load.spritesheet('baba-word', 'assets/sprites/words/baba.png', { frameWidth: 24, frameHeight: 24 });
